@@ -1,46 +1,75 @@
-# TSP Solver using Genetic Algorithm
+# Roteirização de entregas hospitalares com Algoritmo Genético
 
-This repository contains a Python implementation of a Traveling Salesman Problem (TSP) solver using a Genetic Algorithm (GA). The TSP is a classic problem in the field of combinatorial optimization, where the goal is to find the shortest possible route that visits a set of given cities exactly once and returns to the original city.
+Tech Challenge FIAP (fase 2). Um algoritmo genético calcula a rota de um veículo que sai da central de abastecimento, entrega medicamentos e insumos e volta, respeitando as restrições de prioridade, carga e autonomia. Baseado em [FIAP/genetic_algorithm_tsp](https://github.com/FIAP/genetic_algorithm_tsp).
 
-## Overview
+## Restrições
 
-The TSP solver employs a Genetic Algorithm to iteratively evolve a population of candidate solutions towards an optimal or near-optimal solution. The GA operates by mimicking the process of natural selection, where individuals with higher fitness (i.e., shorter route distance) are more likely to survive and produce offspring.
+| Restrição | Regra | Como é tratada |
+|---|---|---|
+| Prioridade | Entregas críticas primeiro, até a 2ª viagem | Penalidade no custo |
+| Carga | 100 kg por viagem; ocupação mínima desejada de 60% | Volta à central quando não cabe; penalidade para pouca carga |
+| Autonomia | 1000 unidades do mapa por viagem, com 10% de reserva | Volta à central antes de usar a reserva |
 
-## Files
+Os pontos e os pesos são sorteados a cada execução, e por isso cada mapa é diferente. O projeto usa um veículo, que pode fazer várias viagens.
 
-- **genetic_algorithm.py**: Contains the implementation of the Genetic Algorithm, including functions for generating random populations, calculating fitness, performing crossover and mutation operations, and sorting populations based on fitness.
-- **tsp.py**: Implements the main TSP solver using Pygame for visualization. It initializes the problem, creates the initial population, and iteratively evolves the population while visualizing the best solution found so far.
-- **draw_functions.py**: Provides functions for drawing cities, paths, and plots using Pygame.
+## Estrutura
 
-## Usage
-
-To run the TSP solver, execute the `tsp.py` script using Python. The solver allows you to choose between different problem instances:
-
-- Randomly generated cities
-- Default predefined problems with 10, 12, or 15 cities
-- `att48` benchmark dataset (uncomment relevant code in `tsp.py`)
-
-You can customize parameters such as population size, number of generations, and mutation probability directly in the `tsp.py` script.
-
-## Dependencies
-
-- Python 3.x
-- Pygame (for visualization)
-
-Ensure Pygame is installed before running the solver. You can install Pygame using pip:
-
-```bash
-pip install pygame
+```
+main.py              Passo a passo do algoritmo
+config.py            Parâmetros do algoritmo, das restrições e da tela
+relatorios_llm.py    Relatórios gerados com a LLM (Gemini) e seus parâmetros
+algoritmo/
+  distancia.py       Distância entre dois pontos
+  problema.py        Pontos de entrega, central, prioridades e pesos
+  genetico.py        População, seleção, cruzamento e mutação
+  rota.py            Divide a rota em viagens e calcula o custo
+restricoes/
+  prioridade.py      Entregas críticas primeiro
+  carga.py           Peso máximo do veículo e ocupação mínima
+  autonomia.py       Distância máxima por viagem
+interface/
+  desenho.py         Funções básicas de desenho
+  janela.py          Janela, legenda e tela final
+tests/               Testes unitários das restrições
+relatorios/          Relatórios gerados em cada execução
 ```
 
-## Acknowledgments
+## Como executar
 
-This TSP solver was developed as a learning project and draws inspiration from various online resources and academic materials on Genetic Algorithms and the Traveling Salesman Problem. Special thanks to the authors of those resources for sharing their knowledge.
+É preciso ter o Python 3 instalado. Na pasta do projeto, prepare o ambiente uma vez:
 
-## License
+```powershell
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install pygame-ce numpy matplotlib
+```
 
-This project is licensed under the [MIT License](LICENSE).
+Depois, execute:
 
----
+```powershell
+.venv\Scripts\python.exe main.py
+```
 
-Feel free to contribute to this repository by providing enhancements, bug fixes, or additional features. If you encounter any issues or have suggestions for improvements, please open an issue on the repository. Happy solving!
+A janela mostra o gráfico de convergência, o mapa com uma cor por viagem e a legenda. A execução para sozinha depois de 500 gerações sem achar uma rota melhor, e o resultado fica na tela até a janela ser fechada. A tecla `q` também fecha a janela.
+
+## Relatórios com LLM
+
+Os relatórios usam o plano gratuito da API do Gemini e precisam de internet. Crie uma chave em https://aistudio.google.com/apikey e um arquivo `.env` na pasta do projeto:
+
+```
+GEMINI_API_KEY=sua-chave-aqui
+```
+
+O arquivo `.env` não vai para o GitHub. Sem a chave, o algoritmo roda normalmente e salva só os dados da rota.
+
+Cada execução cria uma pasta em `relatorios/` com:
+
+- `instrucoes_motorista.md`: dados das entregas de cada viagem
+- `relatorio_diario.md`: eficiência, economia de tempo e recursos e sugestões
+- `dados_rota.json`: dados enviados à LLM
+- `erros.txt`: motivo das falhas, criado só se algo der errado
+
+## Testes
+
+```powershell
+.venv\Scripts\python.exe -m unittest discover -v
+```

@@ -1,0 +1,195 @@
+{
+  "data_execucao": "2026-11-02",
+  "premissas": {
+    "km_por_unidade_do_mapa": 0.05,
+    "velocidade_media_kmh": 80
+  },
+  "veiculo": {
+    "capacidade_kg": 100,
+    "autonomia_km": 50.0,
+    "reserva_de_seguranca_pct": 10,
+    "autonomia_util_por_viagem_km": 45.0
+  },
+  "algoritmo_genetico": {
+    "geracoes_executadas": 612,
+    "geracao_em_que_a_melhor_rota_foi_encontrada": 112,
+    "reinicios_da_populacao": 4,
+    "tamanho_da_populacao": 100,
+    "probabilidade_de_mutacao": 0.5,
+    "criterio_de_parada": "500 gerações seguidas sem rota melhor"
+  },
+  "resumo": {
+    "entregas": 15,
+    "entregas_criticas": 4,
+    "limite_de_viagens_para_entregas_criticas": 2,
+    "entregas_criticas_fora_do_limite": 0,
+    "carga_total_kg": 257,
+    "uso_medio_da_capacidade_pct": 64,
+    "ocupacao_minima_desejada_pct": 60,
+    "uso_minimo_da_capacidade_pct": 59,
+    "penalidade_de_baixa_ocupacao": 40,
+    "uso_medio_da_autonomia_util_pct": 84,
+    "penalidade_de_atraso_nas_criticas": 1439,
+    "distancia_total_km": 152.1,
+    "tempo_total_estimado_min": 114,
+    "numero_de_viagens": 4,
+    "minutos_ate_a_ultima_entrega_critica": 47
+  },
+  "rota_otimizada": [
+    {
+      "viagem": 1,
+      "carga_total_kg": 59,
+      "uso_da_capacidade_pct": 59,
+      "distancia_km": 39.3,
+      "uso_da_autonomia_util_pct": 87,
+      "paradas": [
+        {
+          "ordem": 1,
+          "prioridade": "crítica",
+          "carga_kg": 12,
+          "distancia_do_trecho_km": 13.5
+        },
+        {
+          "ordem": 2,
+          "prioridade": "comum",
+          "carga_kg": 25,
+          "distancia_do_trecho_km": 4.2
+        },
+        {
+          "ordem": 3,
+          "prioridade": "crítica",
+          "carga_kg": 9,
+          "distancia_do_trecho_km": 2.1
+        },
+        {
+          "ordem": 4,
+          "prioridade": "comum",
+          "carga_kg": 13,
+          "distancia_do_trecho_km": 8.1
+        }
+      ],
+      "retorno": {
+        "distancia_km": 11.3,
+        "motivo": "reabastecer: a autonomia útil está perto do fim"
+      }
+    },
+    {
+      "viagem": 2,
+      "carga_total_kg": 64,
+      "uso_da_capacidade_pct": 64,
+      "distancia_km": 43.6,
+      "uso_da_autonomia_util_pct": 97,
+      "paradas": [
+        {
+          "ordem": 5,
+          "prioridade": "crítica",
+          "carga_kg": 26,
+          "distancia_do_trecho_km": 8.3
+        },
+        {
+          "ordem": 6,
+          "prioridade": "crítica",
+          "carga_kg": 15,
+          "distancia_do_trecho_km": 15.5
+        },
+        {
+          "ordem": 7,
+          "prioridade": "comum",
+          "carga_kg": 11,
+          "distancia_do_trecho_km": 2.4
+        },
+        {
+          "ordem": 8,
+          "prioridade": "comum",
+          "carga_kg": 6,
+          "distancia_do_trecho_km": 0.7
+        },
+        {
+          "ordem": 9,
+          "prioridade": "comum",
+          "carga_kg": 6,
+          "distancia_do_trecho_km": 4.1
+        }
+      ],
+      "retorno": {
+        "distancia_km": 12.5,
+        "motivo": "reabastecer: a autonomia útil está perto do fim"
+      }
+    },
+    {
+      "viagem": 3,
+      "carga_total_kg": 63,
+      "uso_da_capacidade_pct": 63,
+      "distancia_km": 27.8,
+      "uso_da_autonomia_util_pct": 62,
+      "paradas": [
+        {
+          "ordem": 10,
+          "prioridade": "comum",
+          "carga_kg": 30,
+          "distancia_do_trecho_km": 5.3
+        },
+        {
+          "ordem": 11,
+          "prioridade": "comum",
+          "carga_kg": 27,
+          "distancia_do_trecho_km": 8.5
+        },
+        {
+          "ordem": 12,
+          "prioridade": "comum",
+          "carga_kg": 6,
+          "distancia_do_trecho_km": 6.3
+        }
+      ],
+      "retorno": {
+        "distancia_km": 7.7,
+        "motivo": "reabastecer: a autonomia útil está perto do fim"
+      }
+    },
+    {
+      "viagem": 4,
+      "carga_total_kg": 71,
+      "uso_da_capacidade_pct": 71,
+      "distancia_km": 41.5,
+      "uso_da_autonomia_util_pct": 92,
+      "paradas": [
+        {
+          "ordem": 13,
+          "prioridade": "comum",
+          "carga_kg": 28,
+          "distancia_do_trecho_km": 15.5
+        },
+        {
+          "ordem": 14,
+          "prioridade": "comum",
+          "carga_kg": 24,
+          "distancia_do_trecho_km": 15.7
+        },
+        {
+          "ordem": 15,
+          "prioridade": "comum",
+          "carga_kg": 19,
+          "distancia_do_trecho_km": 8.1
+        }
+      ],
+      "retorno": {
+        "distancia_km": 2.2,
+        "motivo": "fim da rota"
+      }
+    }
+  ],
+  "comparacao_com_rota_sem_otimizacao": {
+    "descricao": "rota sem otimização = entregas feitas na ordem de cadastro dos pedidos",
+    "sem_otimizacao": {
+      "distancia_total_km": 299.5,
+      "tempo_total_estimado_min": 225,
+      "numero_de_viagens": 9,
+      "minutos_ate_a_ultima_entrega_critica": 188
+    },
+    "economia_km": 147.4,
+    "economia_pct_da_distancia": 49.2,
+    "economia_tempo_min": 111,
+    "antecipacao_da_ultima_entrega_critica_min": 141
+  }
+}
